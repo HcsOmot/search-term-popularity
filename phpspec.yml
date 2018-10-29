@@ -3,4 +3,8 @@ suites:
     namespace: App
     psr4_prefix: App
 
+
+extensions:
+  Cjm\PhpSpec\Extension\TypeHintedMethodsExtension: ~
+
 formatter.name: pretty
