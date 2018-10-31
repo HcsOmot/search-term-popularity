@@ -44,7 +44,7 @@ class SearchController
     public function search(string $searchTerm, SerializerInterface $serializer): JsonResponse
     {
         if ($searchTermScore = $this->searchTermScoreRepository->findOneBy(['term' => $searchTerm])) {
-            return new JsonResponse(json_decode($serializer->serialize($searchTermScore, 'json')));
+            return new JsonResponse(json_decode($serializer->serialize($searchTermScore, 'json', ['groups' => ['data']])));
         }
 
         $searchTermScore = $this->searchService->search($searchTerm);
@@ -52,6 +52,6 @@ class SearchController
         $this->entityManager->persist($searchTermScore);
         $this->entityManager->flush();
 
-        return new JsonResponse(json_decode($serializer->serialize($searchTermScore, 'json')));
+        return new JsonResponse(json_decode($serializer->serialize($searchTermScore, 'json', [])));
     }
 }

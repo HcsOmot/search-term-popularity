@@ -33,8 +33,7 @@ class SearchControllerSpec extends ObjectBehavior
     {
         $serializedData = json_encode(['term' => 'php', 'score' => 3.31]);
         $searchTermScoreRepository->findOneBy(['term' => $this->searchTerm])->shouldBeCalled()->willReturn($searchTermScore);
-        $serializer->serialize($searchTermScore, 'json')->shouldBeCalled()->willReturn($serializedData);
-//        $searchService->search($this->searchTerm)->shouldBeCalled()->willReturn($searchTermScore);
+        $serializer->serialize($searchTermScore, 'json', ['groups' => ['data']])->shouldBeCalled()->willReturn($serializedData);
         $this->search('php', $serializer)->shouldHaveType(JsonResponse::class);
     }
 
@@ -42,7 +41,7 @@ class SearchControllerSpec extends ObjectBehavior
     {
         $serializedData = json_encode(['term' => 'php', 'score' => 3.31]);
         $searchTermScoreRepository->findOneBy(['term' => $this->searchTerm])->shouldBeCalled()->willReturn(null);
-        $serializer->serialize($searchTermScore, 'json')->shouldBeCalled()->willReturn($serializedData);
+        $serializer->serialize($searchTermScore, 'json', [])->shouldBeCalled()->willReturn($serializedData);
         $searchService->search($this->searchTerm)->shouldBeCalled()->willReturn($searchTermScore);
         $entityManager->persist($searchTermScore)->shouldBeCalled();
         $entityManager->flush()->shouldBeCalled();

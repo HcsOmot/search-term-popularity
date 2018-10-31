@@ -1,0 +1,6 @@
+App\Entity\SearchTermScore:
+  attributes:
+    term:
+      groups: ['data']
+    score:
+      groups: ['data']
