@@ -23,11 +23,15 @@
         "symfony/validator": "*",
         "symfony/web-link": "*",
         "symfony/yaml": "*",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-zip": "*"
     },
     "require-dev": {
         "ciaranmcnulty/phpspec-typehintedmethods": "^4.0",
+        "friendsofphp/php-cs-fixer": "^2.13",
+        "phpmd/phpmd": "^2.6",
         "phpspec/phpspec": "^5.0",
+        "phpstan/phpstan": "^0.10.5",
         "roave/security-advisories": "dev-master",
         "symfony/debug-pack": "*",
         "symfony/dotenv": "*",
@@ -71,7 +75,18 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "fix-cs": {
+            "php-cs-fixer": "vendor/bin/php-cs-fixer fix",
+            "phpmd": "vendor/bin/phpmd src --exclude Migrations/ text phpmd.xml"
+        },
+        "run-tests": {
+            "phpspec": "vendor/bin/phpspec run --ansi",
+            "phpunit": "php bin/phpunit"
+        },
+        "analyze-code": {
+            "phpstan": "vendor/bin/phpstan --ansi --memory-limit=-1 analyse -l 7 -c phpstan.neon src"
+        }
     },
     "conflict": {
         "symfony/symfony": "*"
