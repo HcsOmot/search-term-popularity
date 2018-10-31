@@ -16,7 +16,11 @@ class TermPopularityCalculator
 
         $totalResultsCount = $positiveTermSearchResult->countNumber() + $negativeTermSearchResult->countNumber();
 
-        $popularity = round($totalResultsCount / $positiveTermSearchResult->countNumber(), 2);
+        if ($positiveTermSearchResult->countNumber() === 0) {
+            $popularity = 0;
+        } else {
+            $popularity = round($totalResultsCount / $positiveTermSearchResult->countNumber(), 2);
+        }
 
         return new SearchTermScore($positiveTermSearchResult->searchTerm(), $popularity);
     }
