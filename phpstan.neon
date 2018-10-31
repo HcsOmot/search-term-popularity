@@ -1,0 +1,5 @@
+parameters:
+    symfony:
+        container_xml_path: %rootDir%/../../../var/cache/dev/AppDevDebugProjectContainer.xml
+    excludes_analyse:
+        - %rootDir%/../../../src/Migrations/*
